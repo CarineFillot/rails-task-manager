@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
 
+
   def index
     @tasks = Task.all
   end
@@ -14,8 +15,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    Task.create(tasks_params)
-    redirect_to_tasks_path
+    Task.create(user_params)
+    redirect_to tasks_path
   end
 
   def edit
@@ -24,8 +25,8 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    @task.update(params[:task])
-
+    @task.update(user_params)
+    redirect_to tasks_path
   end
 
   def destroy
@@ -39,7 +40,7 @@ private
     @task = Task.find(params[:id])
   end
 
-  def tasks_params
+  def user_params
     params.require(:task).permit(:name, :content, :deadline)
   end
 
